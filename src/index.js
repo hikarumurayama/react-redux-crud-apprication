@@ -7,12 +7,12 @@ import reducer from './reducers'
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
-const store = creaeStore(reducer)
+const store = createStore(reducer)
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
