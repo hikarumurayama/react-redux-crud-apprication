@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk';
 import './index.css';
 import reducer from './reducers'
-import App from './components/App';
+import EventsIndex from './components/events_index';
 import reportWebVitals from './reportWebVitals';
 
-const store = createStore(reducer)
+// thunkを利用するために、apllyMiddlewareに引数として渡し、その返り値をcreateStoreに渡す
+const store = createStore(reducer,applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <EventsIndex />
   </Provider>,
   document.getElementById('root')
 );
