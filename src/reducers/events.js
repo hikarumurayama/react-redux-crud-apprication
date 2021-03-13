@@ -2,10 +2,10 @@ import _ from "lodash"; //配列からオブジェクトに組み替えてくれ
 import { READ_EVENTS } from '../actions'
 
 
-export default (events = {},action) => {
+export default ( events = {}, action) => {
   switch (action.type){
       case READ_EVENTS:
-        return _.mapKeys(action.response.data,'id')
+        return _.mapKeys( action.response.data, 'id')
       default:
         return events
   }

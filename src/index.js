@@ -11,7 +11,7 @@ import EventsNew from './components/events_new';
 import reportWebVitals from './reportWebVitals';
 
 // thunkを利用するために、apllyMiddlewareに引数として渡し、その返り値をcreateStoreに渡す
-const store = createStore(reducer,applyMiddleware(thunk))
+const store = createStore( reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>

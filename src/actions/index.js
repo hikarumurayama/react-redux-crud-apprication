@@ -5,12 +5,16 @@ export const CREATE_EVENTS = 'CREATE_EVENTS'
 const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1'
 const QUERYSTRING = '?token=token123'
 
-// actionCreatorは純粋関数でなくてはならないため、通常APIとの接続処理を書いてはいけないが、それを可能にしたのがthunk
+// thunkの説明記事 https://qiita.com/hiroya8649/items/c202742c99d2cc6159b8
+
+// APIを叩いてEventsを取得する
 export const  readEvents = () => async dispatch => {
-    const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`)
-    dispatch({ type: READ_EVENTS, response})
+    // actionCreatorは純粋関数でなくてはならないため、通常APIとの接続処理を書いてはいけないが、それを可能にしたのがthunk
+    const response = await axios.get( `${ROOT_URL}/events${QUERYSTRING}` )
+    dispatch({ type: READ_EVENTS, response })
 }
 
+// eventをpostする
 export const  postEvents = values => async dispatch => {
     const response = await axios.post(`${ROOT_URL}/events${QUERYSTRING}`, values)
     dispatch({ type: CREATE_EVENTS, response})
