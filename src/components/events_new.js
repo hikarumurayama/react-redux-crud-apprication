@@ -1,6 +1,6 @@
 import React,{ Component} from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form'; // 入力フォーム
 import { Link } from "react-router-dom";
 
 import { postEvents } from '../actions'
@@ -12,7 +12,9 @@ class EventsNew extends Component{
     this.onSubmit = this.onSubmit.bind(this)
   }
 
+  // Fieldコンポーネントの値が渡ってくる
   renderField(field) {
+    // 必要な情報を取得する(metaはredux-form特有のメタ情報)
     const { input, label, type, meta: { touched, error } } = field
     return (
       <div>
@@ -22,19 +24,24 @@ class EventsNew extends Component{
     )
   }
 
+  // 送信ボタン押下
   async onSubmit(values) {
+    // フォームに入力した内容をpostする
     await this.props.postEvents(values)
+    // 初期画面に戻す
     this.props.history.push('/')
   }
 
   render(){
     const { handleSubmit } = this.props
     return (
+      
       <form onSubmit={ handleSubmit(this.onSubmit)}>
+        {/* Fieldコンポーネントに諸々渡す → {this.renderField}でinputタグを作成 */}
         <div><Field label="Title" name="title" type="text" component={this.renderField} /></div>
         <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
         <div>  
-          <input type="submit" value="Submit" disabeld={ false } />
+          <input type="submit" value="Submit" disabeld="false"/>
           <Link to="/" >Cancel</Link>
         </div>
       </form>
@@ -42,6 +49,7 @@ class EventsNew extends Component{
   }
 }
 
+// formのバリデーション
 const validate = values => {
   const errors = {}
 
@@ -50,7 +58,7 @@ const validate = values => {
   }
 
   if ( !values.body ) {
-    errors.body = "Enter a body, pleases."
+    errors.body = "Enter a body, please."
   }
 
   return errors
@@ -59,5 +67,6 @@ const validate = values => {
 const mapDispatchToProps = ({ postEvents })
 
 export default connect(null,　mapDispatchToProps)(
+  // reduxFormでラッピングする（validate関数とフォーム名)
   reduxForm({ validate, form: 'eventNewForm' })(EventsNew)
 )
