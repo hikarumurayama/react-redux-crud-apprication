@@ -18,7 +18,9 @@ class EventsIndex extends Component{
     return _.map(this.props.events, event =>(
       <tr key = {event.id}>
         <td>{event.id}</td>
-        <td>{event.title}</td>
+        <Link to={`/events/${event.id}`}>
+          <td>{event.title}</td>
+        </Link>
         <td>{event.body}</td>
       </tr>
     ))
