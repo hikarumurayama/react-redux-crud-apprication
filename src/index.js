@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk';
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { BrowserRouter, Route, Switch } from "react-router-dom"; //ルーティングするために必要
 import { composeWithDevTools } from 'redux-devtools-extension'
 import './index.css';
@@ -19,18 +20,20 @@ const enhancer = process.env.NODE_ENV === 'development' ?
 const store = createStore( reducer, enhancer)
 
 ReactDOM.render(
-  <Provider store={store}>
-    {/* 以下はルーター実装に必要なおまじない（BrowserRouter、Switch,Route) */}
-    <BrowserRouter>
-      <Switch>
-        {/*exact はURLが完全マッチするときだけヒットするようにしたもの*/}
-        <Route path="/events/new" component={EventsNew} />  
-        <Route path="/events/:id" component={EventsShow} />
-        <Route exact path="/" component={EventsIndex} />
-        <Route exact path="/events" component={EventsIndex} />
-      </Switch>
-    </BrowserRouter>
-  </Provider>,
+  <MuiThemeProvider>
+    <Provider store={store}>
+      {/* 以下はルーター実装に必要なおまじない（BrowserRouter、Switch,Route) */}
+      <BrowserRouter>
+        <Switch>
+          {/*exact はURLが完全マッチするときだけヒットするようにしたもの*/}
+          <Route path="/events/new" component={EventsNew} />  
+          <Route path="/events/:id" component={EventsShow} />
+          <Route exact path="/" component={EventsIndex} />
+          <Route exact path="/events" component={EventsIndex} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
 
